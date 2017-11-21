@@ -1,0 +1,161 @@
+#from cgi import escape
+<a href="http://www.remotestaff.com.au">
+<img src="https://remotestaff.com.au/portal/images/remotestafflogo.gif"  height="54" width="208" style="border-style: none;">
+</a>
+
+<h3 style="font-family:Verdana;"> Daily Staff Activity Notes </h3>
+<table style="font-family:Verdana; font-size:14px; width:600px;">
+    <tr>
+        <td>
+            As a client of Remote Staff, the activity notes are a great way for you to be informed with staff work outputs, progress and priorities throughout the day. Please remind your staff to complete the activity notes in details you need when the activity note pops up on your staff screen every 20/30min.
+        </td>
+    </tr>
+</table>
+<br/>
+<table style="font-family:Verdana; font-size:14px; width:600px;">
+    <tr>
+        <td>
+            To add work task on your staff's work task list please click <a href="https://remotestaff.com.au/portal/django/workflow/">HERE</a>. This will bring you to a page where you can give instructions to your staff via their Work Task List. This is a great tool that will allow you to list down work tasks with priority levels and deadlines.
+        </td>
+    </tr>
+</table>
+<br/>
+<div style="font-family:Verdana;">Timezone reference is set to <b><i>$client_timezone</i></b>.</div>
+<p/>
+
+
+#for $staff in $notes
+    <table style="font-family:Verdana; font-size:14px; width:600px;">
+        <tr style="font-size:14px;color:#0000AA;">
+            <td colspan="4" style="width:600px;"><b>Staff Name: <i>$staff.fname $staff.lname</i></b></td>
+        </tr>
+        <tr>
+            <td colspan="4" style="width:600px;">
+
+                #if $staff.time_records_count != 0
+                    <table style="font-family:Verdana; font-size:14px; background: #888">
+                        <tr bgcolor="#EEEEEE" style="font-weight:bold;">
+                            <td>
+                                Time In
+                            </td>
+                            <td>
+                                Time Out
+                            </td>
+                            <td>
+                                Start Lunch
+                            </td>
+                            <td>
+                                Fin Lunch
+                            </td>
+                        </tr>
+                        #set $bgcolor = '#FFFFCC'
+                        #for $time_record in $staff.time_records
+                            <tr bgcolor="$bgcolor">
+                                <td>
+                                    $time_record.time_in.strftime('%m/%d %I:%M %p')
+                                </td>
+                                <td>
+                                    #if $time_record.time_out != None
+                                        $time_record.time_out.strftime('%m/%d %I:%M %p')
+                                    #end if
+                                </td>
+                                <td>
+                                    #if $time_record.has_key('lunch_start')
+                                        $time_record.lunch_start.strftime('%m/%d %I:%M %p')
+                                    #end if
+                                </td>
+                                <td>
+                                    #if $time_record.has_key('lunch_finish')
+                                        #if $time_record.lunch_finish != None
+                                            $time_record.lunch_finish.strftime('%m/%d %I:%M %p')
+                                        #end if
+                                    #end if
+                                </td>
+                            </tr>
+                            #if $bgcolor == '#FFFFEE'
+                                #set $bgcolor = '#FFFFCC'
+                            #else
+                                #set $bgcolor = '#FFFFEE'
+                            #end if
+                        #end for
+                    </table>
+                #else
+
+
+                	<br/>
+                #end if
+            </td>
+        </tr>
+
+        <tr style="font-weight:bold; background-color:#EEEEEE;"><td style="width:40px;">Date</td><td style="width:72px;">Time</td><td style="width:368px;">Activity Notes</td><td style="width:100px;">Status</td></tr>
+        #set $bgcolor = '#CCFFCC'
+        #set $old_date = ''
+        #for $activity_note in $staff.activity_notes
+            #set $date = $activity_note.responded.strftime('%b %d')
+            #if $bgcolor == '#EEFFEE'
+                #set $bgcolor = '#CCFFCC'
+            #else
+                #set $bgcolor = '#EEFFEE'
+            #end if
+            <tr style="background-color:$bgcolor;">
+                #if $old_date != $date
+                    <td style="width:58px;">$date</td>
+                    #set $old_date = $date
+                #else
+                    <td style="width:58px;"> </td>
+                #end if
+                <td style="width:72px;">$activity_note.responded.strftime('%I:%M %p')</td>
+                <td style="text-indent: 1em; width:368px;">- $escape($activity_note.note)</td>
+                <td style="width:100px;">$activity_note.status</td>
+            </tr>
+        #end for
+
+        #for $note in $staff.admin_notes_per_staff
+            <tr style="bgcolor:#FFFFBB;">
+                <td colspan="4">$note</td>
+            </tr>
+        #end for
+        <tr><td colspan="4" style="width:600px;"> <hr/> </td></tr>
+    </table>
+#end for
+
+## notes from admin all goes here
+#if len($admin_notes_all) != 0
+    <table style="font-family:Verdana; font-size:12px; width:600px;">
+        #for $note in $admin_notes_all
+            <tr style="background-color:#FFFFBB;"><td>$note[0]</td></tr>
+        #end for
+    </table>
+#end if
+
+## notes per client
+#if len($admin_notes_per_client) != 0
+    <table style="font-family:Verdana; font-size:12px; width:600px;">
+        #for $note in $admin_notes_per_client
+            <tr style="background-color:#FFFFBB;"><td>$note[0]</td></tr>
+        #end for
+    </table>
+#end if
+
+##notes  per city
+#if len($admin_notes_per_country_city) != 0
+    <table style="font-family:Verdana; font-size:12px; width:600px;">
+        #for $note in $admin_notes_per_country_city
+            <tr style="background-color:#FFFFBB;"><td>$note[0]</td></tr>
+        #end for
+    </table>
+#end if
+
+
+
+<table style="font-family:Verdana; font-size:12px; width:600px; font-style:italic;">
+        <tr style="background-color:#FFFFEE;"><td>For any questions, comments and suggestions, there's a lot of ways to contact us once logged in to your Client Portal:
+            <ol>
+                <li>You can text/voice chat with our Client support team via the Remote Staff Chat. Just click on the Chat link on the upper right hand corner of your Client portal.
+                </li>
+                <li>The direct phone numbers, email addresses and Skype IDs of our contact support team can be found on Support Team Contact Details tab.
+                </li>
+                <li>For questions regarding attendance and time sheet please email <a href="mailto:attendance@remotestaff.com.au">attendance@remotestaff.com.au</a>.
+                </li>
+            </ol></td></tr>
+</table>

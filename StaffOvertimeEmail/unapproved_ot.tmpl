@@ -1,0 +1,54 @@
+#filter WebSafe
+<p style="padding-bottom: 1em;">
+Hi $staff_fname.strip,
+</p>
+
+<p style="padding-bottom: 1em;">
+Below is your summary of working hours for this week. Your regular contract working hours is $regular_working_hours hours a day  for $client_fname.strip. 
+</p>
+
+<table style="border: 1px solid black; padding-bottom: 1em; border-collapse: collapse;">
+    <tr style="font-weight:bold; background-color:#EEEEEE;">
+        <td style="border: 1px solid black;">Day/Date</td>
+        <td style="border: 1px solid black;">Total Logged Hours on RSSC</td>
+        <td style="border: 1px solid black;">Overtime Hours on RSSC</td>
+        <td style="border: 1px solid black;">Undertime</td>
+    </tr>
+    #set $bgcolor = '#CCFFCC'
+    #for $item in $recorded_hours
+        #if $bgcolor == '#EEFFEE'
+            #set $bgcolor = '#CCFFCC'                                                                                                                                 
+        #else
+            #set $bgcolor = '#EEFFEE'
+        #end if
+        <tr style="background-color:$bgcolor;">
+            <td style="border: 1px solid black;">$item.day_formatted</td>
+            <td style="border: 1px solid black; text-align:right;">$item.total_logged_hours_rssc</td>
+            <td style="border: 1px solid black; text-align:right;">$item.overtime</td>
+            <td style="border: 1px solid black; text-align:right;">$item.undertime</td>
+        </tr>
+    #end for
+</table>
+
+<p style="padding-bottom: 1em; padding-top: 1em;">
+TOTAL Hours : = $total_login_hrs
+<br/>
+Yet to be Approved overtime = $total_overtime_hrs
+</p>
+
+<p style="padding-bottom: 1em;">
+Please update me if the overtime hours as listed from $date_from to $date_to  above is approved to be paid by your client by $next_date_day_full next week , $next_date before 4 PM Manila. Also update me if you have offline working hours along with reason as to why you worked offline. I need proof of approval from your client like Skype convo screen shots, actual email copy requesting you to work overtime  or offline on a specific date etc. 
+</p>
+
+<p style="padding-bottom: 1em;">
+We need update from you so we can settle charges to your client and to avoid issues  on your payout. Failure to confirm approval may result to none payment of the above over time work hours. 
+</p>
+
+<p style="padding-bottom: 1em;">
+Hope to hear from you soon! Happy weekend! 
+</p>
+#end filter
+
+<p style="padding-bottom: 1em;">
+$signature
+</p>

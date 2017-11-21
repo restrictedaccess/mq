@@ -1,0 +1,56 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<div style="background-color: #FFF; border: 1px solid #E1E1E8; border-radius: 4px 4px 4px 4px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset; margin-bottom: 20px;     min-height: 20px; padding: 19px; font-family:Verdana, Geneva, sans-serif; font-size:12px;">
+	<div style="margin-bottom:20px; border-bottom: 1px solid #ccc; margin-bottom: 20px;     padding-bottom: 20px;"><img src="http://remotestaff.com.au/remotestaff_2015/img/logo.png"></div>
+	
+	
+	<p>Dear $client_name,</p>
+	<p>&nbsp;</p>
+	
+	<p>Thanks for your payment. </p>
+	<p>&nbsp;</p>
+	
+	
+	<p>			
+		We have received the amount of $currency.code $currency.sign$input_amount via $payment_mode for invoice # $order_id. 
+	</p>		
+	<p>&nbsp;</p>
+		
+			
+	#if $over_payment == False:
+		
+		#if $negative_30_client == False:
+	    	<p>
+	        	Your Available Balance is now : <strong> $currency.code $currency.sign$running_balance</strong>
+	    	</p>
+	    	<p>&nbsp;</p>
+	    	<p>
+	    		This available balance can be used up by any of your remote staff members.  Your next invoice will be issued to you 5 days before you run out of credit.
+	    	</p>
+	    	<p>&nbsp;</p>	    	 
+		#end if 
+		
+	#else
+	
+		<p>
+			The amount you paid is over the invoice $order_id amount as your invoice amount is $currency.sign$total_amount.
+		</p>
+		<p>&nbsp;</p>
+		
+		<p>
+			We created a new invoice to account for the amount you just paid over the invoice amount. 
+			Please click <a href="$top_up_url/$overpayment_order_id">here</a> to view the invoice.
+		</p>	 
+		<p>&nbsp;</p> 
+    
+	#end if
+
+
+<p>&nbsp;</p>
+<p>
+	Should you have any questions, please don't hesitate to contact us.
+	<a href="mailto:accounts@remotestaff.com.au">accounts@remotestaff.com.au</a><br/>
+ 	AUS +61 (02) 8073 4142 press 4 over the phone<br>
+	USA +1 617 945 8437<br>
+</p>
+
+</div>

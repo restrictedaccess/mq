@@ -1,0 +1,210 @@
+<div style='font-family: "lucida grande",tahoma,verdana,arial,sans-serif; font-size: 12px; line-height:25px;'>
+
+<p>Hi $client_name,</p>
+
+#if $status == 'paid'
+    #if $overpayment_from
+        <p>
+            Below and attached is your invoice from <strong>overpaying</strong> $overpayment_from.
+        </p>
+    #else
+        <p>
+            Below and attached is your first month invoice. Your current available balance ($currency $currency_sign$running_balance) can cover this invoice and we will continue processing it.
+        </p>
+    #end if
+#else
+    <p>
+        Please find attached latest Remote Staff Invoice.  
+        #if $pay_before_date:
+            Please make payments on or before $pay_before_date.   
+        #end if
+
+ 		#if $days_before_suspension != -30
+       		To avoid temporary suspension of your account.
+        #end if
+
+    </p>
+    #if $days_before_suspension == -30
+        <p>
+            EXPLANATORY NOTES:<br/>
+            <ul>
+                <li>
+                    <strong>"Adjustment Credit Memo"</strong>
+                    is the credit memo issued to you for un-used / unworked hours paid for last month.
+                </li>
+                <li>
+                    <strong>"Adjustment Over Time Work"</strong>
+                    is the difference between the previous month's paid hours and your staff member's actual working hours pro-rated.
+                </li>
+            </ul>
+        </p>
+    #else
+        <p>
+            EXPLANATORY NOTE ON DATE COVERAGE:<br/>
+            <ul>
+                <li>
+                    The date coverage on column 2 is tentative and estimated based on your staff member's daily cost assuming that there is 22 working days each month. Your next invoice might have overlaping dates to this invoice's coverage dates if your staff member is approved to work more than his daily contract rate of 8 hours for full time and 4 hours for part time.
+                </li>
+                <li>
+                    In cases when your staff does not work for the day or couple of days, the date coverage on this invoice will extend to the date when your credit is exhausted.
+                </li>
+            </ul>
+        </p>
+ 
+	    <p>
+	        EXPLANATORY NOTES ON CURRENCY ADJUSTMENTS:<br/>
+	        <ul>
+	            <li>
+	                Currency rate is based on the current exchange rate we have on the market place the time your Invoice was created. The next Invoice might have a different Currency Rate because we do averages based on the actual forex trade rate 1st and 15th of every month to get the best possible exchange rate. Please note that currency adjustment in a form of a credit and debit will be applied on your Available Balance.
+	            </li>
+	            <li>
+	                Kindly note that currency adjustment in a form of a credit and debit will be applied on your Available Balance. Currency Adjustment is charged real- time based on the total hours your staff member logged in for the day.
+	            </li>
+	        </ul>
+	    </p>
+    #end if
+
+    <p style="font-style: italic">
+        * If you have previously filled a direct debit form and agreed to be on direct debit with us, this email is just for your record. We will just process the payment for you.
+    </p>
+#end if
+
+<div style="border: 1px solid #888888; padding: 8px; margin-top: 18px;">
+    $invoice_header_and_items
+</div>
+
+#if $status != 'paid'
+    #if $pay_before_date:
+        <p style="text-align: right;">
+            Payment Due Date: $pay_before_date
+        </p>
+    #end if
+
+    <p>
+        Your Payment Options :
+    </p>
+
+    #if $DEBUG
+        #set $payment_link = "http://test.remotestaff.com.au/portal/v2/payments/top-up/"
+    #else
+        #set $payment_link = "https://remotestaff.com.au/portal/v2/payments/top-up/"
+    #end if
+
+    <p style="padding-left:28px; line-height: 14px;">
+        <ol>
+            <li>
+                Credit Card:
+                <br/>
+                We accept Visa, Master Card and AMEX. Follow this link <a href="$payment_link$order_id">$payment_link$order_id</a> to pay for this invoice or call +61 (02) 8014 9196 press 4 to pay over the phone.
+            </li>
+            <li>
+                Auto Debit:
+                <br/>
+                Have your account paid on the invoice due date automaticaly via direct debit or credit card to save time. Fill this form <a href="https://remotestaff.com.au/portal/pdf_report/credit_card_debit_form/THKGENDirectDebitForm.pdf">https://remotestaff.com.au/portal/pdf_report/credit_card_debit_form/THKGENDirectDebitForm.pdf</a> (Australian Clients Only) or Credit Card form <a href="https://remotestaff.com.au/portal/pdf_report/credit_card_debit_form/?id=$client_id">https://remotestaff.com.au/portal/pdf_report/credit_card_debit_form/?id=$client_id</a> and return to <a href="mailto:accounts@remotestaff.com.au">accounts@remotestaff.com.au</a>
+            </li>
+            <li>
+                Electronic Fund Transfer to:
+                <br>
+
+                <div style="padding-left:28px;line-height: 14px;">
+                    <div style="font-weight:bold;">
+                        Australia :
+                    </div>
+                    <div>
+                        Account Name: Think Innovations Pty. Ltd.
+                    </div>
+                    <div>
+                        BSB: 082 973
+                    </div>
+                    <div>
+                        Account Number: 49 058 9267
+                    </div>
+                    <div>
+                        Bank Branch: Darling Street, Balmain NSW 2041
+                    </div>
+                    <div>
+                        Swift Code: NATAAU3302S
+                    </div>
+
+                    <div style="font-weight:bold;padding-top:18px;">
+                        United Kingdom :
+                    </div>
+                    <div>
+                        Account Name: Think Innovations Pty. Ltd.
+                    </div>
+                    <div>
+                        UK Bank Address: HSBC. 25 Nothing Hill Gate.London. W11 3JJ
+                    </div>
+                    <div>
+                        Sort code: 40-05-09
+                    </div>
+                    <div>
+                        Acc: 61-50-63-23
+                    </div>
+                    <div>
+                        Swift Code: MIDLGB22
+                    </div>
+                    <div>
+                        IBAN Number: GB54MIDL40050961506323
+                    </div>
+
+                    <div style="font-weight:bold;padding-top:18px;">
+                        United States :
+                    </div>
+                    <div>
+                        Account Name: Think Innovations Pty. Ltd.
+                    </div>
+                    <div>
+                        Bank Branch: HSBC Bank USA NA 452 Fifth Avenue, New York, NY 10018
+                    </div>
+                    <div>
+                        Account number: 048-984-515
+                    </div>
+                    <div>
+                        Routing Number: 021001088
+                    </div>
+                    <div>
+                        Swift code: MRMDUS33
+                    </div>
+                </div>
+                <br/>
+                For electronic money transfer, please email your transaction receipt to <a href="mailto:accounts@remotestaf.com.au">accounts@remotestaff.com.au</a> for quicker activation of your account.
+            </li>
+            <li>
+                PayPal
+                <br/>
+                Follow this link <a href="$payment_link$order_id">$payment_link$order_id</a> to pay for this invoice with PayPal.
+            </li>
+        </ol>
+    </p>
+
+    <div style="padding-top:28px; padding-left:28px; line-height:14px;">
+        <span style="font-weight:bold;">Note:</span>
+        <p/>
+        For Invoices in Australian Dollar a Merchant facility fees apply for the following credit card holders:
+        <ul>
+            <li>
+                AMEX : 2%
+            </li>
+            <li>
+                Visa / MasterCard : 1%
+            </li>
+        </ul>
+        <p/>
+        For Invoices in Pounds and USD, 2% Merchant facility fees apply for all credit card payments.
+        <p/>
+        Paypal fees ranging from 1.1% - 2.4% of your invoice amount applies and will be reflected as a debit on your Available Balance Sheet.
+        <p/>
+        Note that we prefer payments made via bank transfer or direct debit.
+    </div>
+
+
+    </div>
+
+#end if
+
+<pre style="font-size:12px;padding-top:128px;">
+-----------------------------------------
+Ref doc: $doc_id
+-----------------------------------------
+</pre>

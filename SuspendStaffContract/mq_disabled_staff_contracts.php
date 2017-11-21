@@ -1,0 +1,52 @@
+<?php
+//  publisher script for syncing prod remotestaff/adhoc
+//  2012-01-18  Lawrence Sunglao <lawrence.sunglao@remotestaff.com.au
+//  -   blanked exchanged, updated queue and moved amqplib
+
+require('conf/zend_smarty_conf.php');
+require('conf/conf.php');
+include 'auto-disabled-staff-contracts.php';
+
+$exchange = 'suspended';   //apparently empty string is not allowed and the default is '/', exchange must be a valid one although not really used in these scenario
+$queue = 'suspended';
+$consumer_tag = 'consumer';
+
+$conn = new AMQPConnection(HOST, PORT, USER, PASS, VHOST);
+$ch = $conn->channel();
+$ch->queue_declare($queue, false, true, false, false);
+$ch->exchange_declare($exchange, 'direct', false, true, false);
+$ch->queue_bind($queue, $exchange);
+
+function process_message($msg) {
+
+    echo "\n--------\n";
+    echo sprintf('%s %s', date('Y-m-d H:i:s'), $msg->body);
+    echo "\n--------\n";
+
+    $msg->delivery_info['channel']->
+        basic_ack($msg->delivery_info['delivery_tag']);
+    
+	//function to disabled staff contract subcontractors.status = 'suspended'
+	disabled_staff_contracts($msg->body);
+	 
+    // Send a message with the string "quit" to cancel the consumer.
+    if ($msg->body === 'quit') {
+        $msg->delivery_info['channel']->
+            basic_cancel($msg->delivery_info['consumer_tag']);
+    }
+}
+
+
+$ch->basic_consume($queue, $consumer_tag, false, false, false, false, 'process_message');
+
+function shutdown($ch, $conn){
+    $ch->close();
+    $conn->close();
+}
+register_shutdown_function('shutdown', $ch, $conn);
+
+// Loop as long as the channel has callbacks registered
+while(count($ch->callbacks)) {
+    $ch->wait();
+}
+?>

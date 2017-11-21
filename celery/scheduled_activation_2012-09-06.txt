@@ -1,0 +1,20 @@
+[0m[1m[1;37m<-[0m [0mscheduled[0m
+[0m[1m[1;37m->[0m [0m[1;36miweb03: [0m[1;32mOK[0m[0m
+    [0m[1;37m*[0m {u'priority': 0, u'eta': 1347483600.0,
+u'request': {u'args': u"['1434']", u'time_start': None, u'name':
+u'ScheduleActivation.ScheduleActivation', u'delivery_info':
+{u'routing_key': u'celery', u'exchange': u'celery'}, u'hostname':
+u'iweb03', u'acknowledged': False, u'kwargs': u'{}', u'id': u
+'00090e1e-78cb-4ed2-a9a5-be0a613a58ba', u'worker_pid': None}}[0m
+    [0m[1;37m*[0m {u'priority': 0, u'eta': 1347303600.0,
+u'request': {u'args': u"['1436']", u'time_start': None, u'name':
+u'ScheduleActivation.ScheduleActivation', u'delivery_info':
+{u'routing_key': u'celery', u'exchange': u'celery'}, u'hostname':
+u'iweb03', u'acknowledged': False, u'kwargs': u'{}', u'id':
+u'ea3c47ca-a317-43a8-ad7b-5f207e6afe23', u'worker_pid': None}}[0m
+    [0m[1;37m*[0m {u'priority': 0, u'eta': 1347303600.0,
+u'request': {u'args': u"['1454']", u'time_start': None, u'name':
+u'ScheduleActivation.ScheduleActivation', u'delivery_info':
+{u'routing_key': u'celery', u'exchange': u'celery'}, u'hostname':
+u'iweb03', u'acknowledged': False, u'kwargs': u'{}', u'id':
+u'1df9728a-e734-4141-9fdf-cf73fe4f0ecd', u'worker_pid': None}}[0m

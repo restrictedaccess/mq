@@ -1,0 +1,222 @@
+<div style='font-family: "lucida grande",tahoma,verdana,arial,sans-serif; font-size: 12px; line-height:25px;'>
+
+<p>Dear $client_fname $client_lname,</p>
+
+<p>
+    Below and attached is your invoice for your Remote Staff account. Please make payments above or equal to your invoice amount below by following this secure link   
+    #if $DEBUG
+        #set $payment_link = "http://test.remotestaff.com.au/portal/ClientTopUp/TopUp.html?order_id="
+    #else
+        #set $payment_link = "https://remotestaff.com.au/portal/ClientTopUp/TopUp.html?order_id="
+    #end if
+    <a href="$payment_link$order_id">$payment_link$order_id</a>. We accept Visa and Mastercard.
+
+    <p>
+        You can also do and electronic money transfer to the following bank accounts depending on our country of location.
+    </p>
+
+    <div style="padding-left:28px;line-height: 14px;">
+        <div style="font-weight:bold;">
+            Australia :
+        </div>
+        <div>
+            Account Name: Think Innovations Pty. Ltd.
+        </div>
+        <div>
+            BSB: 082 973
+        </div>
+        <div>
+            Account Number: 49 058 9267
+        </div>
+        <div>
+            Bank Branch: Darling Street, Balmain NSW 2041
+        </div>
+        <div>
+            Swift Code: NATAAU3302S
+        </div>
+
+        <div style="font-weight:bold;padding-top:18px;">
+            United Kingdom :
+        </div>
+        <div>
+            Account Name: Think Innovations Pty. Ltd.
+        </div>
+        <div>
+            UK Bank Address: HSBC. 25 Nothing Hill Gate.London. W11 3JJ
+        </div>
+        <div>
+            Sort code: 40-05-09
+        </div>
+        <div>
+            Acc: 61-50-63-23
+        </div>
+        <div>
+            Swift Code: MIDLGB22
+        </div>
+        <div>
+            IBAN Number: GB54MIDL40050961506323
+        </div>
+
+        <div style="font-weight:bold;padding-top:18px;">
+            United States :
+        </div>
+        <div>
+            Account Name: Think Innovations Pty. Ltd.
+        </div>
+        <div>
+            Bank Branch: HSBC Bank USA NA 452 Fifth Avenue, New York, NY 10018
+        </div>
+        <div>
+            Account number: 048-984-515
+        </div>
+        <div>
+            Routing Number: 021001088
+        </div>
+        <div>
+            Swift code: MRMDUS33
+        </div>
+    </div>
+    
+    <p>
+        For electronic money transfer, please email your transaction receipt to <a href="mailto:accounts@remotestaff.com.au">accounts@remotestaff.com.au</a> for quicker activation of your account.
+    </p>
+</p>
+
+
+<hr/>
+
+<table style="font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; font-size: 12px; line-height: 14px;">
+    <tr>
+        <td>
+            <img src="https://remotestaff.com.au/portal/images/remote_staff_logo.png" height="68"/>
+        </td>
+        <td style="text-align:right;">
+            <img src="https://remotestaff.com.au/portal/images/think_innovations_logo.png" style="float:right;" height="68"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div>
+                <span style="font-weight:bold;">AUS</span> : Suite 1A, level 2 802 Pacific Highway, Gordon NSW 2072 Australia
+            </div>
+            <div>
+                <span style="font-weight:bold;">UK</span> : Remote Staff Limited, 2 Martin House, 179 - 181 North End Road, London W14 9NL
+            </div>
+            <div>
+                <span style="font-weight:bold;">Phone</span> : 02 8003 4694 (Tam) , 02 8005 1383 (Angel) 
+            </div>
+            <div>
+                <span style="font-weight:bold;">Fax</span> : 02 8088 7247
+            </div>
+            <div>
+                <span style="font-weight:bold;">USA Fax</span> : (650) 745 1088
+            </div>
+            <div>
+                <span style="font-weight:bold;">Email</span> : <a href="mailto:accounts@remotestaff.com.au">accounts@remotestaff.com.au</a>
+            </div>
+        </td>
+        <td style="vertical-align:top;">
+            <div style="float:right;">
+                <div>Think Innovations Pty. Ltd. ABN 37 094 364 511</div>
+                <div>
+                    <div style="float:right;">
+                        <div>
+                            <a href="www.remotestaff.com.au">www.remotestaff.com.au</a>
+                        </div>
+                        <div>
+                            <a href="www.remotestaff.co.uk">www.remotestaff.co.uk</a>
+                        </div>
+                        <div>
+                            <a href="www.remotestaff.biz">www.remotestaff.biz</a>
+                        </div>
+                    </div>
+                    <div style="float:right; padding-right: 8px;"><span style="font-weight:bold; float:left;">Websites </span>:</div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div style="line-height: 14px; padding-top: 18px;">
+    <div>
+        Name: <span style="font-weight:bold;">$client_fname  $client_lname</span>
+    </div>
+    <div>
+        Company: $company_name
+    </div>
+    <div>
+        Address: $company_address
+    </div>
+</div>
+
+<table style='font-family: "lucida grande",tahoma,verdana,arial,sans-serif; font-size: 12px;'>
+    <tr>
+        <td colspan=4 style="text-align: center; font-size: 16px; font-weight: bold; padding-top: 18px;">
+            Tax Invoice $order_id
+        </td>
+    </tr>
+    <tr style="font-weight:bold; background-color:#EEEEEE;">
+        <td>Item</td>
+        <td style="white-space:nowrap;">Date</td>
+        <td style="text-align:center;">Description</td>
+        <td style="text-align:right;">Amount</td>
+    </tr>
+
+    #set $bgcolor = '#CCFFCC'
+    #for $item in $invoice_items
+        #if $bgcolor == '#EEFFEE'
+            #set $bgcolor = '#CCFFCC'
+        #else
+            #set $bgcolor = '#EEFFEE'
+        #end if
+        <tr style="background-color:$bgcolor;">
+            <td align="right">$item.item_id</td>
+            <td style="white-space:nowrap;">$item.start_date.strftime('%b %d, %Y') - $item.end_date.strftime('%b %d, %Y')</td>
+            <td style="text-align:left;">$item.description</td>
+            <td style="text-align:right;">$item.amount</td>
+        </tr>
+    #end for
+
+    <tr>
+        <td colspan=3 style="font-weight:bold; text-align:right;">Sub Total</td>
+        <td style="text-align:right;">$sub_total</td>
+    </tr>
+    
+    <tr>
+        <td colspan=3 style="font-weight:bold; text-align:right;">GST</td>
+        <td style="text-align:right;">$gst_amount</td>
+    </tr>
+    
+    <tr>
+        <td colspan=3 style="font-weight:bold; text-align:right; background-color:#EEEEEE;">Total Amount</td>
+        <td style="text-align:right;font-weight:bold;background-color:#FFFF00;white-space:nowrap;">$currency $currency_sign$total_amount</td>
+    </tr>
+    
+</table>
+
+<div style="padding-top:28px; padding-left:28px; line-height:14px;">
+    <span style="font-weight:bold;">Note:</span>
+    <p/>
+    For Invoices in Australian Dollar a Merchant facility fees apply for the following credit card holders:
+    <ul>
+        <li>
+            AMEX : 2%
+        </li>
+        <li>
+            Visa / MasterCard : 1%
+        </li>
+    </ul>
+    <p/>
+    For Invoices in Pounds and USD, 2% Merchant facility fees apply for all credit card payments.
+    <p/>
+    Note that we prefer payments made via bank transfer or direct debit.
+</div>
+
+
+</div>
+
+<pre style="font-size:12px;padding-top:128px;">
+-----------------------------------------
+Ref doc: $doc_id
+-----------------------------------------
+</pre>
